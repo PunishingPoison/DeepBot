@@ -154,10 +154,6 @@ st.markdown(
         color: white !important;
         border-color: #666 !important;
     }
-    header [data-testid="stHeader"] svg {
-    stroke: white !important;
-    fill: white !important;
-    }
     </style>
     """,
     unsafe_allow_html=True
