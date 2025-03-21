@@ -10,9 +10,28 @@ st.markdown(
         background-color: #121212;
         color: #FFFFFF;
     }
+
     .stApp {
         background-color: #1e1e1e;
         color: #FFFFFF;
+    }
+
+    header[data-testid="stHeader"] {
+        background-color: #1e1e1e;
+        color: white;
+        border-bottom: 1px solid #333;
+    }
+
+    /* Optional: hide the hamburger menu (≡) and Streamlit logo */
+    [data-testid="stSidebarNav"] {
+        background-color: #1e1e1e;
+        color: white;
+    }
+
+    /* Optional: Hide the top-right menu completely */
+    button[kind="header"] {
+        background-color: transparent !important;
+        color: white !important;
     }
 
     /* Chat Styling */
@@ -21,27 +40,32 @@ st.markdown(
         margin: auto;
         padding: 20px;
     }
+
     .chat-message {
         display: flex;
         align-items: flex-start;
         margin: 10px 0;
     }
+
     .chat-message.user {
         justify-content: flex-end;
         text-align: right;
         margin-right: 10px;
     }
+
     .chat-message.ai {
         justify-content: flex-start;
         text-align: left;
         margin-left: 10px;
     }
+
     .message-bubble {
         max-width: 70%;
         padding: 10px;
         border-radius: 10px;
         margin: 5px;
     }
+
     .message-bubble.user {
         background-color: #f63366 !important;
         color: white !important;
@@ -50,6 +74,7 @@ st.markdown(
         margin-left: auto;
         margin-right: 0;
     }
+
     .message-bubble.ai {
         background-color: #2e2e2e;
         color: #f1f1f1;
@@ -57,6 +82,7 @@ st.markdown(
         border-radius: 16px 16px 16px 0 !important;
         margin-right: auto;
     }
+
     .message-name {
         font-size: 12px;
         color: #aaa;
@@ -69,9 +95,11 @@ st.markdown(
         color: white !important;
         border: 1px solid #444 !important;
     }
+
     label, .stTextArea label {
         color: white !important;
     }
+
     textarea::placeholder {
         color: #cccccc !important;
     }
@@ -105,10 +133,10 @@ st.markdown(
         overflow-x: auto;
     }
 
-    /* Optional scrollbar styling for code blocks */
     pre::-webkit-scrollbar {
         height: 6px;
     }
+
     pre::-webkit-scrollbar-thumb {
         background: #444;
         border-radius: 4px;
@@ -130,7 +158,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 # ---------------- Session Setup ----------------
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
