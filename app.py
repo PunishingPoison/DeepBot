@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # ---------------- Streamlit Config ----------------
-st.set_page_config(page_title="WSP ChatBot", layout="wide", page_icon="🤖")
+st.set_page_config(page_title="LogiQ AI", layout="wide", page_icon="🤖")
 st.markdown(
     """
     <style>
@@ -162,7 +162,7 @@ st.markdown(
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
-st.markdown('<div class="header"><h2>🤖 WSP ChatBot (OpenRouter)</h2></div>', unsafe_allow_html=True)
+st.markdown('<div class="header"><h2>🤖 LogiQ AI (OpenRouter)</h2></div>', unsafe_allow_html=True)
 
 # ---------------- Chat Container ----------------
 chat_container = st.container()
@@ -170,7 +170,7 @@ with chat_container:
     for msg in st.session_state["messages"]:
         role = msg["role"]
         content = msg["content"]
-        name = "Me" if role == "user" else "WSP Bot"
+        name = "Me" if role == "user" else "LogiQ AI"
         align = "user" if role == "user" else "ai"
         st.markdown(
             f"""
@@ -211,8 +211,8 @@ if submit_button and user_input:
             """
             <div class="chat-message ai">
                 <div>
-                    <div class="message-name">WSP Bot</div>
-                    <div class="message-bubble ai">WSP Bot is typing...</div>
+                    <div class="message-name">LogiQ AI</div>
+                    <div class="message-bubble ai">LogiQ AI is typing...</div>
                 </div>
             </div>
             """,
@@ -245,7 +245,7 @@ if submit_button and user_input:
             f"""
             <div class="chat-message ai">
                 <div>
-                    <div class="message-name">WSP Bot</div>
+                    <div class="message-name">LogiQ AI</div>
                     <div class="message-bubble ai">{bot_message}</div>
                 </div>
             </div>
