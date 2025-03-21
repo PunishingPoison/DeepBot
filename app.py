@@ -162,7 +162,7 @@ st.markdown(
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
-st.markdown('<div class="header"><h2>🤖 LogiQ AI (OpenRouter)</h2></div>', unsafe_allow_html=True)
+st.markdown('<div class="header"><h2>🤖 LogiQ AI</h2></div>', unsafe_allow_html=True)
 
 # ---------------- Chat Container ----------------
 chat_container = st.container()
