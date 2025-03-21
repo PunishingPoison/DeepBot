@@ -53,6 +53,24 @@ st.markdown(
         color: #aaa;
         margin-bottom: 3px;
     }
+
+    /* --- Custom Text Area Styling --- */
+    textarea {
+        background-color: #2b2b2b !important;
+        color: white !important;
+        border: 1px solid #444 !important;
+    }
+
+    /* --- Custom Button Styling --- */
+    button[kind="primary"] {
+        background-color: #333333 !important;
+        color: white !important;
+        border: none !important;
+    }
+    button[kind="primary"]:hover {
+        background-color: #444444 !important;
+        color: white !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
