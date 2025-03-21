@@ -104,6 +104,10 @@ st.markdown(
     background-color: transparent !important;
     border: none !important;
     }
+    button[title="Copy to clipboard"]:hover {
+    filter: invert(1) brightness(1.2);
+    cursor: pointer;
+    }
     </style>
     """,
     unsafe_allow_html=True
