@@ -107,13 +107,16 @@ button[kind="primary"]:hover {
         border-radius: 4px;
     }
     button[title="Copy to clipboard"] {
-    filter: invert(1); /* makes it white */
-    background-color: transparent !important;
-    border: none !important;
+    color: white !important;
+    background-color: #1e1e1e !important;
+    border: 1px solid #444 !important;
+    border-radius: 6px !important;
     }
+
     button[title="Copy to clipboard"]:hover {
-    filter: invert(1) brightness(1.2);
-    cursor: pointer;
+    background-color: #333 !important;
+    color: white !important;
+    border-color: #666 !important;
     }
     </style>
     """,
