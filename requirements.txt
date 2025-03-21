@@ -1,4 +1,2 @@
 streamlit==1.32.0
 requests==2.31.0
-markdown==3.5.2
-streamlit-chat==0.1.1
