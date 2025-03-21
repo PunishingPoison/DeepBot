@@ -99,6 +99,11 @@ st.markdown(
         background: #444;
         border-radius: 4px;
     }
+    button[title="Copy to clipboard"] {
+    filter: invert(1); /* makes it white */
+    background-color: transparent !important;
+    border: none !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
