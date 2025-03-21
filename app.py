@@ -72,12 +72,12 @@ st.markdown(
     /* Button Styling */
     button[kind="primary"] {
         background-color: #333333 !important;
-        color: white !important;
+        color: black !important;
         border: none !important;
     }
     button[kind="primary"]:hover {
         background-color: #444444 !important;
-        color: white !important;
+        color: black !important;
     }
 
     /* --- Dark Code Block Styling --- */
