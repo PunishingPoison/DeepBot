@@ -14,6 +14,8 @@ st.markdown(
         background-color: #1e1e1e;
         color: #FFFFFF;
     }
+
+    /* Chat Styling */
     .chat-container {
         max-width: 800px;
         margin: auto;
@@ -54,14 +56,12 @@ st.markdown(
         margin-bottom: 3px;
     }
 
-    /* --- Custom Text Area Styling --- */
+    /* Textarea + Label */
     textarea {
         background-color: #2b2b2b !important;
         color: white !important;
         border: 1px solid #444 !important;
     }
-
-    /* Make label and placeholder text white */
     label, .stTextArea label {
         color: white !important;
     }
@@ -69,7 +69,7 @@ st.markdown(
         color: #cccccc !important;
     }
 
-    /* --- Custom Button Styling --- */
+    /* Button Styling */
     button[kind="primary"] {
         background-color: #333333 !important;
         color: white !important;
@@ -78,6 +78,26 @@ st.markdown(
     button[kind="primary"]:hover {
         background-color: #444444 !important;
         color: white !important;
+    }
+
+    /* --- Dark Code Block Styling --- */
+    pre, code {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        border-radius: 8px;
+        padding: 12px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+        overflow-x: auto;
+    }
+
+    /* Optional scrollbar styling for code blocks */
+    pre::-webkit-scrollbar {
+        height: 6px;
+    }
+    pre::-webkit-scrollbar-thumb {
+        background: #444;
+        border-radius: 4px;
     }
     </style>
     """,
