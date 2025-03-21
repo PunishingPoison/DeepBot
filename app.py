@@ -1,82 +1,58 @@
 import streamlit as st
 import requests
+from markdown import markdown
+from streamlit_chat import message
 
-st.set_page_config(page_title="WSP ChatBot", layout="wide", initial_sidebar_state="collapsed")
-
-# Apply custom dark mode styling
+# ---------------- Streamlit Page Config ----------------
+st.set_page_config(page_title="WSP ChatBot", layout="wide")
 st.markdown("""
     <style>
-        body {
+        html, body {
             background-color: #121212;
             color: #FFFFFF;
         }
-        .chat-container {
-            max-height: 75vh;
-            overflow-y: auto;
-            padding: 1rem;
-            border-radius: 10px;
+        .block-container {
+            padding-top: 2rem;
+            padding-bottom: 6rem;
+        }
+        .stTextInput > div > div > input {
             background-color: #1e1e1e;
-            margin-bottom: 70px;
+            color: white;
         }
-        .message.user {
-            color: #00FFB3;
-            font-weight: bold;
-        }
-        .message.bot {
-            color: #FFFFFF;
-            background-color: #2a2a2a;
-            padding: 0.5rem;
+        .stTextInput > div {
+            border: 1px solid #333;
             border-radius: 10px;
         }
-        .fixed-input {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #121212;
-            padding: 1rem;
-            border-top: 1px solid #333;
-        }
-        input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            border: none;
-            border-radius: 10px;
-        }
-        button {
-            padding: 10px 20px;
+        .stButton>button {
             background-color: #00FFB3;
-            border: none;
-            border-radius: 10px;
             color: black;
             font-weight: bold;
-            margin-left: 10px;
+            border-radius: 10px;
         }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown("<h2 style='color:white;'>🤖 WSP ChatBot</h2>", unsafe_allow_html=True)
 
-# Initialize chat history
+# ---------------- Session Setup ----------------
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display previous messages
-st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+# ---------------- Chat History ----------------
 for msg in st.session_state.messages:
-    role_class = "user" if msg["role"] == "user" else "bot"
-    st.markdown(f"<div class='message {role_class}'>{msg['content']}</div>", unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
+    message(msg["content"], is_user=(msg["role"] == "user"))
 
-# Input area fixed at the bottom
-with st.container():
-    st.markdown('<div class="fixed-input">', unsafe_allow_html=True)
-    user_input = st.text_input("You:", value="", key="input", label_visibility="collapsed", placeholder="Type your message and hit Enter")
-    st.markdown('</div>', unsafe_allow_html=True)
+# ---------------- User Input ----------------
+with st.form("chat_input", clear_on_submit=True):
+    user_input = st.text_input("Type your message...", placeholder="Ask anything...", label_visibility="collapsed")
+    submit = st.form_submit_button("Send")
 
-# Send request
-if user_input:
+# ---------------- Send & Respond ----------------
+if submit and user_input:
+    # Add user message
     st.session_state.messages.append({"role": "user", "content": user_input})
+
+    # Display loading message
     with st.spinner("Thinking..."):
         try:
             headers = {
@@ -87,13 +63,16 @@ if user_input:
             }
             payload = {
                 "model": "deepseek/deepseek-r1:free",
-                "messages": [{"role": "user", "content": user_input}],
+                "messages": st.session_state.messages,
             }
+
             res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
             res_data = res.json()
             bot_reply = res_data.get("choices", [{}])[0].get("message", {}).get("content", "No response received.")
-        except Exception as e:
-            bot_reply = f"Error: {e}"
 
-        st.session_state.messages.append({"role": "bot", "content": bot_reply})
-        st.experimental_rerun()
+        except Exception as e:
+            bot_reply = f"Error: {str(e)}"
+
+    # Add bot reply
+    st.session_state.messages.append({"role": "assistant", "content": bot_reply})
+    message(bot_reply, is_user=False)
