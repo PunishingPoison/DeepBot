@@ -61,6 +61,14 @@ st.markdown(
         border: 1px solid #444 !important;
     }
 
+    /* Make label and placeholder text white */
+    label, .stTextArea label {
+        color: white !important;
+    }
+    textarea::placeholder {
+        color: #cccccc !important;
+    }
+
     /* --- Custom Button Styling --- */
     button[kind="primary"] {
         background-color: #333333 !important;
