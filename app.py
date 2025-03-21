@@ -1,78 +1,157 @@
 import streamlit as st
 import requests
-from markdown import markdown
-from streamlit_chat import message
 
-# ---------------- Streamlit Page Config ----------------
-st.set_page_config(page_title="WSP ChatBot", layout="wide")
-st.markdown("""
+# ---------------- Streamlit Config ----------------
+st.set_page_config(page_title="WSP ChatBot", layout="wide", page_icon="🤖")
+st.markdown(
+    """
     <style>
-        html, body {
-            background-color: #121212;
-            color: #FFFFFF;
-        }
-        .block-container {
-            padding-top: 2rem;
-            padding-bottom: 6rem;
-        }
-        .stTextInput > div > div > input {
-            background-color: #1e1e1e;
-            color: white;
-        }
-        .stTextInput > div {
-            border: 1px solid #333;
-            border-radius: 10px;
-        }
-        .stButton>button {
-            background-color: #00FFB3;
-            color: black;
-            font-weight: bold;
-            border-radius: 10px;
-        }
+    body {
+        background-color: #121212;
+        color: #FFFFFF;
+    }
+    .stApp {
+        background-color: #1e1e1e;
+        color: #FFFFFF;
+    }
+    .chat-container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+    }
+    .chat-message {
+        display: flex;
+        align-items: flex-start;
+        margin: 10px 0;
+    }
+    .chat-message.user {
+        justify-content: flex-end;
+        text-align: right;
+    }
+    .chat-message.ai {
+        justify-content: flex-start;
+        text-align: left;
+    }
+    .message-bubble {
+        max-width: 70%;
+        padding: 10px;
+        border-radius: 10px;
+        margin: 5px;
+    }
+    .message-bubble.user {
+        background-color: #0d47a1;
+        color: white;
+        border: 1px solid #1565c0;
+    }
+    .message-bubble.ai {
+        background-color: #2e2e2e;
+        color: #f1f1f1;
+        border: 1px solid #444;
+    }
+    .message-name {
+        font-size: 12px;
+        color: #aaa;
+        margin-bottom: 3px;
+    }
     </style>
-""", unsafe_allow_html=True)
-
-st.markdown("<h2 style='color:white;'>🤖 WSP ChatBot</h2>", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
 # ---------------- Session Setup ----------------
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state["messages"] = []
 
-# ---------------- Chat History ----------------
-for msg in st.session_state.messages:
-    message(msg["content"], is_user=(msg["role"] == "user"))
+st.markdown('<div class="header"><h2>🤖 WSP ChatBot (OpenRouter)</h2></div>', unsafe_allow_html=True)
+
+# ---------------- Chat Container ----------------
+chat_container = st.container()
+with chat_container:
+    for msg in st.session_state["messages"]:
+        role = msg["role"]
+        content = msg["content"]
+        name = "Me" if role == "user" else "WSP Bot"
+        align = "user" if role == "user" else "ai"
+        st.markdown(
+            f"""
+            <div class="chat-message {align}">
+                <div>
+                    <div class="message-name">{name}</div>
+                    <div class="message-bubble {align}">{content}</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 # ---------------- User Input ----------------
-with st.form("chat_input", clear_on_submit=True):
-    user_input = st.text_input("Type your message...", placeholder="Ask anything...", label_visibility="collapsed")
-    submit = st.form_submit_button("Send")
+with st.form("user_input_form", clear_on_submit=True):
+    user_input = st.text_area("Your message:", key="user_input", placeholder="Type your message here...", height=100)
+    submit_button = st.form_submit_button("Send")
 
-# ---------------- Send & Respond ----------------
-if submit and user_input:
-    # Add user message
-    st.session_state.messages.append({"role": "user", "content": user_input})
+# ---------------- OpenRouter API ----------------
+if submit_button and user_input:
+    st.session_state["messages"].append({"role": "user", "content": user_input})
 
-    # Display loading message
-    with st.spinner("Thinking..."):
-        try:
-            headers = {
+    # Show user's message + placeholder for bot response
+    with chat_container:
+        st.markdown(
+            f"""
+            <div class="chat-message user">
+                <div>
+                    <div class="message-name">Me</div>
+                    <div class="message-bubble user">{user_input}</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        placeholder = st.empty()
+        placeholder.markdown(
+            """
+            <div class="chat-message ai">
+                <div>
+                    <div class="message-name">WSP Bot</div>
+                    <div class="message-bubble ai">WSP Bot is typing...</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+    try:
+        response = requests.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers={
                 "Authorization": "Bearer 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",
                 "HTTP-Referer": "https://www.sitename.com",
                 "X-Title": "SiteName",
                 "Content-Type": "application/json",
-            }
-            payload = {
+            },
+            json={
                 "model": "deepseek/deepseek-r1:free",
-                "messages": st.session_state.messages,
-            }
+                "messages": st.session_state["messages"]
+            },
+        )
+        data = response.json()
+        bot_message = data["choices"][0]["message"]["content"]
+    except Exception as e:
+        bot_message = f"Error: {str(e)}"
 
-            res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
-            res_data = res.json()
-            bot_reply = res_data.get("choices", [{}])[0].get("message", {}).get("content", "No response received.")
+    # Show actual bot response
+    placeholder.empty()
+    with chat_container:
+        st.markdown(
+            f"""
+            <div class="chat-message ai">
+                <div>
+                    <div class="message-name">WSP Bot</div>
+                    <div class="message-bubble ai">{bot_message}</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
-        except Exception as e:
-            bot_reply = f"Error: {str(e)}"
-
-    # Add bot reply
-    st.session_state.messages.append({"role": "assistant", "content": bot_reply})
-    message(bot_reply, is_user=False)
+    # Save bot reply
+    st.session_state["messages"].append({"role": "assistant", "content": bot_message})
