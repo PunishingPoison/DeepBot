@@ -41,9 +41,9 @@ st.markdown(
         margin: 5px;
     }
     .message-bubble.user {
-        background-color: #0d47a1;
-        color: white;
-        border: 1px solid #1565c0;
+    background-color: #f63366 !important;
+    color: white !important;
+    border: 1px solid #ff4b7d !important;
     }
     .message-bubble.ai {
         background-color: #2e2e2e;
