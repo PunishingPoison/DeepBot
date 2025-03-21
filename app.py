@@ -29,10 +29,12 @@ st.markdown(
     .chat-message.user {
         justify-content: flex-end;
         text-align: right;
+        margin-right: 10px;
     }
     .chat-message.ai {
         justify-content: flex-start;
         text-align: left;
+        margin-left: 10px;
     }
     .message-bubble {
         max-width: 70%;
@@ -41,14 +43,19 @@ st.markdown(
         margin: 5px;
     }
     .message-bubble.user {
-    background-color: #f63366 !important;
-    color: white !important;
-    border: 1px solid #ff4b7d !important;
+        background-color: #f63366 !important;
+        color: white !important;
+        border: 1px solid #ff4b7d !important;
+        border-radius: 16px 16px 0 16px !important;
+        margin-left: auto;
+        margin-right: 0;
     }
     .message-bubble.ai {
         background-color: #2e2e2e;
         color: #f1f1f1;
         border: 1px solid #444;
+        border-radius: 16px 16px 16px 0 !important;
+        margin-right: auto;
     }
     .message-name {
         font-size: 12px;
@@ -71,21 +78,21 @@ st.markdown(
 
     /* Button Styling */
     button[kind="primary"] {
-    background-color: #1a1a1a !important;
-    color: #ffffff !important;
-    border: 1px solid #444 !important;
-    border-radius: 8px !important;
-    padding: 0.5rem 1.2rem !important;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
-}
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
+        border: 1px solid #444 !important;
+        border-radius: 8px !important;
+        padding: 0.5rem 1.2rem !important;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
 
-button[kind="primary"]:hover {
-    background-color: #2c2c2c !important;
-    color: #ffffff !important;
-    border-color: #666 !important;
-}
+    button[kind="primary"]:hover {
+        background-color: #f63366 !important;
+        color: #ffffff !important;
+        border-color: #ff4b7d !important;
+    }
 
     /* --- Dark Code Block Styling --- */
     pre, code {
@@ -106,17 +113,18 @@ button[kind="primary"]:hover {
         background: #444;
         border-radius: 4px;
     }
+
     button[title="Copy to clipboard"] {
-    color: white !important;
-    background-color: #1e1e1e !important;
-    border: 1px solid #444 !important;
-    border-radius: 6px !important;
+        color: white !important;
+        background-color: #1e1e1e !important;
+        border: 1px solid #444 !important;
+        border-radius: 6px !important;
     }
 
     button[title="Copy to clipboard"]:hover {
-    background-color: #333 !important;
-    color: white !important;
-    border-color: #666 !important;
+        background-color: #333 !important;
+        color: white !important;
+        border-color: #666 !important;
     }
     </style>
     """,
