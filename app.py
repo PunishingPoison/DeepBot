@@ -71,14 +71,21 @@ st.markdown(
 
     /* Button Styling */
     button[kind="primary"] {
-        background-color: #333333 !important;
-        color: black !important;
-        border: none !important;
-    }
-    button[kind="primary"]:hover {
-        background-color: #444444 !important;
-        color: black !important;
-    }
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border: 1px solid #444 !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1.2rem !important;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+button[kind="primary"]:hover {
+    background-color: #2c2c2c !important;
+    color: #ffffff !important;
+    border-color: #666 !important;
+}
 
     /* --- Dark Code Block Styling --- */
     pre, code {
