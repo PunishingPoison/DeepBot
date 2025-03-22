@@ -162,7 +162,15 @@ st.markdown(
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
-st.markdown('<div class="header"><h2>🤖 LogiQ AI</h2></div>', unsafe_allow_html=True)
+st.markdown(
+    """
+    <div class="header" style="display: flex; align-items: center; gap: 10px;">
+        <img src="https://raw.githubusercontent.com/PunishingPoison/DeepBot/logo.png" alt="LogiQ Logo" width="32" height="32">
+        <h2 style="margin: 0;">LogiQ AI</h2>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # ---------------- Chat Container ----------------
 chat_container = st.container()
