@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # ---------------- Streamlit Config ----------------
-st.set_page_config(page_title="LogiQ AI", layout="wide", page_icon="🤖")
+st.set_page_config(page_title="LogiQ AI", layout="wide", page_icon="🔘")
 st.markdown(
     """
     <style>
