@@ -165,7 +165,7 @@ if "messages" not in st.session_state:
 st.markdown(
     """
     <div style='text-align: center; padding: 10px 0;'>
-        <h1 style='font-size: 48px; margin: 0;'>LogiQ AI</h1>
+        <h1 style='font-size: 48px; margin: 0;'>🔘 LogiQ AI</h1>
     </div>
     """,
     unsafe_allow_html=True
