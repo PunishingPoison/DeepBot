@@ -230,13 +230,13 @@ if submit_button and user_input:
         response = requests.post(
             "https://openrouter.ai/api/v1/chat/completions",
             headers={
-                "Authorization": "Bearer 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",
+                "Authorization": "Bearer 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",
                 "HTTP-Referer": "https://www.sitename.com",
                 "X-Title": "SiteName",
                 "Content-Type": "application/json",
             },
             json={
-                "model": "nvidia/llama-3.1-nemotron-70b-instruct:free",
+                "model": "nvidia/llama-3.1-nemotron-ultra-253b-v1:free",
                 "messages": st.session_state["messages"]
             },
         )
